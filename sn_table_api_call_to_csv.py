@@ -1,5 +1,4 @@
-#Need to install requests package for python
-#easy_install requests
+# Required Packages
 import json
 import requests
 import pandas as pd
