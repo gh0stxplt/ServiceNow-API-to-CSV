@@ -1,6 +1,6 @@
-number,short_description,priority
-INC0000060,Unable to connect to email,3
-INC0009002,My computer is not detecting the headphone device,3
-INC0000009,Reset my password,1
-INC0000010,Need Oracle 10GR2 installed,4
-INC0000011,Need new Blackberry set up,3
+number,caller_id,short_description,priority,assigned_to,assignment_group
+INC0000060,Joe Employee,Unable to connect to email,3,David Loo,Network
+INC0009002,David Miller,My computer is not detecting the headphone device,3,,
+INC0000009,Rick Berzle,Reset my password,1,David Loo,Service Desk
+INC0000010,Fred Luddy,Need Oracle 10GR2 installed,4,Don Goodliffe,Database
+INC0000011,Don Goodliffe,Need new Blackberry set up,3,ITIL User,Hardware

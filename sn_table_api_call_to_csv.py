@@ -31,12 +31,46 @@ data = response.json()
 with open ('data.json', 'w') as f:
     json.dump(data['result'], f)
 
-# Read the new json file
+# Read the dirty json file
+with open ('data.json', 'r') as read:
+    dirty = json.load(read)
+
+# Need to clean up caller_id as this is a reference field by making a new request 
+# and gathering the users full name, then writing back to data.json
+for c in dirty:
+    try:
+        caller = requests.get(c['caller_id']['link'], auth=(user, pwd), headers=headers )
+        c['caller_id'] = caller.json()['result']['name']
+    except: 
+        pass
+
+# We also need to clean up assigned_to
+for a in dirty:
+    try:
+        assigned = requests.get(a['assigned_to']['link'], auth=(user, pwd), headers=headers )
+        a['assigned_to'] = assigned.json()['result']['name']
+    except:
+        pass
+
+# We also need to clean up assignment_group
+for g in dirty:
+    try:
+        group = requests.get(g['assignment_group']['link'], auth=(user, pwd), headers=headers )
+        g['assignment_group'] = group.json()['result']['name']
+    except:
+        pass
+
+
+# Write the cleaned up fields back to data.json
+with open ('data.json', 'w') as new:
+    json.dump(dirty, new)
+
+# Read the new json file with updated fields
 with open ('data.json', 'r') as read:
     json_list = json.load(read)
 
 # Define the fields we need in our csv export
-fields = ['number', 'short_description', 'priority']
+fields = ['number', 'caller_id', 'short_description', 'priority', 'assigned_to', 'assignment_group']
 
 # Create key to value relationships for our specified columns
 json_list = [{k:d[k] for k in fields} for d in json_list]
